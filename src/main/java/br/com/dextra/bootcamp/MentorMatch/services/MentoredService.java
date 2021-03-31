@@ -2,6 +2,7 @@ package br.com.dextra.bootcamp.MentorMatch.services;
 
 import br.com.dextra.bootcamp.MentorMatch.models.Mentored;
 import br.com.dextra.bootcamp.MentorMatch.models.MentoredResponse;
+import br.com.dextra.bootcamp.MentorMatch.models.exceptions.UnexistentEntityException;
 import br.com.dextra.bootcamp.MentorMatch.repositories.MentoredRepository;
 import com.sun.xml.bind.v2.TODO;
 import org.springframework.data.domain.Example;
@@ -37,7 +38,7 @@ public class MentoredService {
 
     }
 
-    public MentoredResponse findOne(Long id) throws UnexistentEntityException { //fazer essa exceção
+    public MentoredResponse findOne(Long id) throws UnexistentEntityException {
         Mentored mentored = this.findById(id);
         return new MentoredResponse(mentored);
     }
@@ -50,7 +51,7 @@ public class MentoredService {
         mentoredRepository.deleteById(id);
     }
 
-    public Mentored findById(Long id) throws UnexistentEntityException{ //TODO:fazer essa exceção
+    public Mentored findById(Long id) throws UnexistentEntityException{
         Optional<Mentored> mentored = mentoredRepository.findById(id);
         if (mentored == null) {
             throw new UnexistentEntityException("O mentorado não existe no banco");
