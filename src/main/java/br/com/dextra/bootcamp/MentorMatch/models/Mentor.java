@@ -22,10 +22,19 @@ public class Mentor {
 	@ManyToMany
 	private List<Mentored>linkedList;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "mentor")
 	private List<Mentored>mentored;
-	
-	
+
+	public Mentor() {
+	}
+
+	public Mentor(long id, String name, String knowledge, String bio, List<Mentored> linkedList, List<Mentored> mentored) {
+		this.id = id;
+		this.name = name;
+		this.knowledge = knowledge;
+		this.bio = bio;
+	}
+
 	public long getId() {
 		return id;
 	}
