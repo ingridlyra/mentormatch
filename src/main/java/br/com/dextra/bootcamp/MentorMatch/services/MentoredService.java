@@ -28,54 +28,33 @@ public class MentoredService {
 
     }
 
-    public List<MentoredResponse> findAllById() {
-        return mentoredRepository.findAll().stream().map(mentored -> new MentoredResponse(mentored)).collect(Collectors.toList()));
-    }
-
-    public <S extends Mentored> List<S> saveAll(Iterable<S> entities) {
-        return null;
-    }
-
-    @Override
-    public void deleteInBatch(Iterable<Mentored> entities) {
+    public List<MentoredResponse> list() {
+        return mentoredRepository.findAll().stream()
+                .map(mentored -> new MentoredResponse(mentored))
+                .collect(Collectors.toList());
 
     }
 
-    @Override
-    public void deleteAllInBatch() {
-
+    public MentoredResponse findOne(Long id) throws UnexistentEntityException { //fazer essa exceção
+        Mentored mentored = this.findById(id);
+        return new MentoredResponse(mentored);
     }
 
-    @Override
-    public Mentored getOne(Long aLong) {
-        return null;
+    public Mentored update(Mentored mentored) {
+        return mentoredRepository.save(mentored);
     }
 
-    @Override
-    public <S extends Mentored> List<S> findAll(Example<S> example) {
-        return null;
+    public void delete(long id) {
+        mentoredRepository.deleteById();
     }
 
-    @Override
-    public <S extends Mentored> List<S> findAll(Example<S> example, Sort sort) {
-        return null;
+    public Mentored findById(Long id) throws UnexistentEntityException{ //fazer essa exceção
+        Optional<Mentored> mentored = mentoredRepository.findById(id);
+        if (mentored.isEmpty) {
+            throw new UnexistentEntityException("O mentorado não existe no banco");
+        }
+        return mentored.get();
     }
-
-    @Override
-    public <S extends Mentored> S save(S entity) {
-        return null;
-    }
-
-    public findOne<Mentored> findById(Long aLong) {
-        return findOne.empty();
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        mentoredRepository.deleteById(id);
-    }
-
-}
 
 
 }
